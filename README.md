@@ -45,23 +45,7 @@ kube.mountModule(myModel); //myModel will need to imported at the top of the fil
 
 Once this is done, after initialisation of the app, the model can be accessed through the global kube scope like so:
 ```javascript
-kube.myModel.findOne();
+const ExampleModel = kube.mongoose.model('example');
+const exampleModelInstance = new ExampleModel();
 ```
 
-## Base functions
-
-### `setupConnection()`
-
-Sets up a new connection using the environment variables defined.
-```javascript
-  const mongo = kube.namespace('mongo');
-  
-  mongo.setupConnection()
-    .then(function handleConnectionClient(client) {
-      //do something with client here
-    })
-    .catch(handleSetupError(error) {
-      kube.logger.error({error}, 'Error setting up connection');
-      Throw new Error(error);
-    })
-```
