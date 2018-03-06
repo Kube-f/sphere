@@ -40,7 +40,4 @@ export default function mongoAddon(kube) {
       console.log(err)
       kube.logger.error({err}, 'Error while connecting to mongodb');
     })
-
-
-    
 }
