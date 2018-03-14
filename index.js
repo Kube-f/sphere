@@ -16,16 +16,24 @@ export default function mongoAddon(kube) {
   const { MONGO_URL, DB_NAME, DB_UNAME, DB_PASSWORD } = process.env;
   const connectionString = `mongodb://${DB_UNAME}:${DB_PASSWORD}@${MONGO_URL}/${DB_NAME}?readPreference=secondary`
 
-  mongoNamespace.defSync(function model(name, data = {}) {
+  mongoNamespace.defSync(function createModel(name, data = {}) {
     if(!name || name.length < 1 || name == '') {
       return
     }
 
     const foundModel = kube.mongoose.model(name)
     if(foundModel) {
-
       return new foundModel(data);
     }
+  })
+
+  mongoNamespace.defSync(function baseModel(name) {
+    if(!name || name.length < 1 || name == '') {
+      return
+    }
+
+    const foundModel = kube.mongoose.model(name)
+    return foundModel ? foundModel : null;
   })
 
   return kube.mongoose.connect(connectionString)
