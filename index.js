@@ -25,6 +25,7 @@ export default function mongoAddon(kube) {
     if(foundModel) {
       return new foundModel(data);
     }
+    return null;
   })
 
   mongoNamespace.defSync(function baseModel(name) {
